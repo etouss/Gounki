@@ -12,7 +12,7 @@
 #include "pion.h"
 #include "partieHeuristique.h"
 
-//int heuristiques (pion** grille,coup* coup,char joueur);
+/*//int heuristiques (pion** grille,coup* coup,char joueur);*/
 int calculHeuristiqueCoups(coup * pere, pion ** grille, char joueur,int type);
 int calculHeuristiqueCoupsMultiples(coup * pere, pion ** grille, char joueur,int profondeur,int type);
 void setReglageA(double armee,double perce, double def);

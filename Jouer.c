@@ -9,8 +9,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Jouer.h"
-//1=48,8=56
-//a=97,h=104
+/*1=48,8=56*/
+/*a=97,h=104*/
 
 char * advice;
 int victoire = 0;
@@ -158,8 +158,11 @@ void viderBuffer()
 }
 
 void interaction(char * coup , pion ** grille , char* joueur , int mode, struct coup * pere){
+  pion ** grilleCpy;
+  int type;
+  int len;
   fgets(coup, 13, stdin);
-  int len = strlen(coup);
+  len = (int)strlen(coup);
   coup[len-1]=0;
   if(!strcmp(coup, "save")){
     save(grille, *joueur, mode);
@@ -182,13 +185,13 @@ void interaction(char * coup , pion ** grille , char* joueur , int mode, struct 
       scanf("%d", &difficulter);
       viderBuffer();
     }
-      int type = -1;
+      type = -1;
       printf("0 pour l'IA standa\n1 pour l'IA aggresive\n2 pour l'IA defence\n3 pour l'IA bizzare\n");
       while (difficulter<0||difficulter>4) {
           scanf("%d", &type);
           viderBuffer();
       }
-    pion ** grilleCpy = copieGrille(grille);
+    grilleCpy = copieGrille(grille);
     jouerCoupIA(grilleCpy, *joueur, difficulter, 1,1,type);
     freeGrille(grilleCpy);
     printf("advice : %s \n", advice);
@@ -220,17 +223,22 @@ else{
 
 
 void jouer(){
+  int mode;
+  char *coup;
+  struct coup * pere;
+  char joueur;
+  int i;
+  pion ** grille;
   advice = calloc(16,sizeof(char));
   initMap();
-  char joueur='A';
-  int i;
-  pion ** grille = initGrille();
-  char *coup=malloc(sizeof(char)*13);
+  joueur='A';
+  grille = initGrille();
+  coup =malloc(sizeof(char)*13);
   for(i=0;i<13;i++){
     coup[i]=0;
   }
 
-  int mode=0;
+  mode=0;
   printf("Bienvenue A Gounki\n");
   printf("Pour initier une nouvelle partie taper 1\nPour charger une partie taper 2 \n");
   while (mode==0) {
@@ -260,13 +268,12 @@ void jouer(){
   }
   printf("Vous pouvez taper help a tout moment dans le jeu pour avoir accée a differente option \n");
   if (mode==1) {
-    //2 joueurs.
-    //while (fonction victoir.)
+    /*2 joueurs.*/
+    /*while (fonction victoir.)*/
     while (!victoire) {
       updateMap(grille);
       affiche();
 
-      struct coup * pere;
       pere = malloc(sizeof(struct coup));
       pere->proto = NULL;
       pere->coupSuivant = NULL;
@@ -298,19 +305,17 @@ void jouer(){
       scanf("%d", &difficulter);
       viderBuffer();
     }
+    type = -1;
       printf("0 pour l'IA standa\n1 pour l'IA aggresive\n2 pour l'IA defence\n3 pour l'IA bizzare\n");
-      while (difficulter<0||difficulter>4) {
+      while (type<0||type>4) {
           scanf("%d", &type);
           viderBuffer();
       }
-    //Appelle fonction joueurs contre IA
     while (!victoire) {
-      //while (fonction victoir.)
       if(joueur == 'A'){
         updateMap(grille);
         affiche();
 
-        struct coup * pere;
         pere = malloc(sizeof(struct coup));
         pere->proto = NULL;
         pere->coupSuivant = NULL;
@@ -328,7 +333,7 @@ void jouer(){
         affiche();
 
         if(!victoire){
-          printf("Coup IA\n");//appelle IA.
+          printf("Coup IA\n");
           jouerCoupIA(grille, 'B',difficulter,0,0,type);
           joueur = 'A';
         }
@@ -338,7 +343,6 @@ void jouer(){
 
   }
   else{
-    //Appelle fonction faire jouer 2 IA
     printf("IA VS IA\n");
   }
     freeMap();

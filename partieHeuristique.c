@@ -20,7 +20,18 @@ void viderBufferc()
 
 int partiH()
 {
-
+    pion ** grille;
+    coup * coupPossible;
+    coup * pere;
+    coup * coupSuivant;
+    int signe,reglage,victoire,t,a,b,f,n,i,max;
+    double unite;
+    coup *coupHeuri;
+    coup *coupActuelle;
+    double * heuriA;
+    double * heuriB;
+    int choix;
+    FILE * fichier;
     /*int typeA = -1;
     int typeB = -1;
     printf("Choisiser l'IA de A \n0 pour l'IA standa\n1 pour l'IA aggresive\n2 pour l'IA defence\n3 pour l'IA bizzare\n");
@@ -39,48 +50,48 @@ int partiH()
     setReglageA(4.226562, 1.513672, 1.734375);
     setReglageB(4.226562, 1.513672, 1.734375);
 
-    int signe = 1;
-    double unite = 1;
-    int reglage = 0;
+    signe = 1;
+    unite = 1;
+    reglage = 0;
 
     while(1){
-    int victoire = 0;
-    int t = 0;
-    int a=0;
-    int b = 0;
+    victoire = 0;
+    t = 0;
+    a=0;
+    b = 0;
 
     for (t=0; t<1000; t++) {
 
         victoire = 0;
         initMap();
-        pion ** grille = initGrille();
-        //affiche();
+        grille = initGrille();
+        /*affiche();*/
 
-        int f = 0;
+        f = 0;
         while (!victoire) {
 
             {
                 f ++;
                 if (f>100000) break;
-                coup * pere;
                 pere = calloc(1,sizeof(coup));
                 pere->proto = NULL;
                 pere->coupSuivant = NULL;
                 pere = coupsPossibles(grille, 'A',pere);
-                coup * coupPossible = pere;
-                int n = 0;
-                int i = 0;
-                int max = calculHeuristiqueCoups(pere, grille,'A',-1);
+                coupPossible = pere;
+                n = 0;
+                i = 0;
+                max = -9999999;
+                max = calculHeuristiqueCoups(pere, grille,'A',-1);
 
                 coupPossible = pere;
-                coup *coupHeuri = calloc(1,sizeof(coup));
+                coupHeuri = calloc(1,sizeof(coup));
                 coupHeuri->proto = NULL;
                 coupHeuri->coupSuivant = NULL;
-                coup *coupActuelle = coupHeuri;
+                coupActuelle = coupHeuri;
                 while (coupPossible != NULL){
                     if(coupPossible->heuristique == max){
                         n++;
-                        coup * coupSuivant = calloc(1,sizeof(coup)); coupSuivant->proto = NULL;coupSuivant->coupSuivant= NULL;
+                        coupSuivant = calloc(1,sizeof(coup)); coupSuivant->proto = NULL;coupSuivant->coupSuivant= NULL;
                         coupActuelle->proto = coupPossible->proto;
                         coupActuelle->heuristique =coupPossible->heuristique;
                         coupActuelle->coupSuivant = coupSuivant;
@@ -90,8 +101,8 @@ int partiH()
                 }
 
 
-                int choix = (rand()%n);
-                //i = 0;
+                choix = (rand()%n);
+                /*i = 0;*/
                 coupPossible = coupHeuri;
 
                 for (i=0; i<choix; i++) {
@@ -100,19 +111,19 @@ int partiH()
 
 
 
-                //printf("\n%s\n",coupPossible->proto);
+                /*printf("\n%s\n",coupPossible->proto);*/
                 if(action(grille, coupPossible->proto, pere,1)==1){
-                    //printf("efef");
+                    /*printf("efef");*/
                     a++;
                     victoire = 1;
                     break;
-                    //printf("a");
+                    /*printf("a");*/
                 }
 
                 freeCoup(pere,1);
                 freeCoup(coupHeuri,0);
                 updateMap(grille);
-                //affiche();
+                /*affiche();*/
             }
             {
                 coup * pere;
@@ -120,19 +131,20 @@ int partiH()
                 pere->proto = NULL;
                 pere->coupSuivant = NULL;
                 pere = coupsPossibles(grille, 'B',pere);
-                coup * coupPossible = pere;
-                int n = 0;
-                int i = 0;
-                int max = calculHeuristiqueCoups(pere, grille,'B',-1);
                 coupPossible = pere;
-                coup *coupHeuri = calloc(1,sizeof(coup));
+                n = 0;
+                i = 0;
+                max = -9999999;
+                max = calculHeuristiqueCoups(pere, grille,'B',-1);
+                coupPossible = pere;
+                coupHeuri = calloc(1,sizeof(coup));
                 coupHeuri->proto = NULL;
                 coupHeuri->coupSuivant = NULL;
-                coup *coupActuelle = coupHeuri;
+                coupActuelle = coupHeuri;
                 while (coupPossible != NULL){
                     if(coupPossible->heuristique == max){
                         n++;
-                        coup * coupSuivant = calloc(1,sizeof(coup)); coupSuivant->proto = NULL;coupSuivant->coupSuivant= NULL;
+                        coupSuivant = calloc(1,sizeof(coup)); coupSuivant->proto = NULL;coupSuivant->coupSuivant= NULL;
                         coupActuelle->proto = coupPossible->proto;
                         coupActuelle->heuristique =coupPossible->heuristique;
                         coupActuelle->coupSuivant = coupSuivant;
@@ -140,7 +152,7 @@ int partiH()
                     }
                         coupPossible = coupPossible->coupSuivant;
                 }
-                int choix = (rand()%n);
+                choix = (rand()%n);
                 i = 0;
                 coupPossible = coupHeuri;
 
@@ -148,9 +160,9 @@ int partiH()
                     coupPossible = coupPossible->coupSuivant;
                 }
 
-                //printf("\n%s\n",coupPossible->proto);
+                /*printf("\n%s\n",coupPossible->proto);*/
                 if(action(grille, coupPossible->proto, pere,1)==1){
-                    //printf("b");
+                    /*printf("b");*/
                     b++;
                     victoire = 1;
                     break;
@@ -159,18 +171,18 @@ int partiH()
                 freeCoup(pere,1);
                 freeCoup(coupHeuri,0);
                 updateMap(grille);
-                //affiche();
+                /*affiche();*/
             }
 
         }
-        //printf("%d",t);
+        /*printf("%d",t);*/
         freeGrille(grille);
         freeMap();
 
     }
-        double * heuriA = getReglageA();
-        double * heuriB = getReglageB();
-    FILE * fichier = fopen("heuristique.txt", "a");
+        heuriA = getReglageA();
+        heuriB = getReglageB();
+        fichier = fopen("heuristique.txt", "a");
         fprintf(fichier,"ArmeA = %f , PerceA = %f , DefenceA = %f \nArmeeB = %f PerceeB = %f , DefenceB = %f \n A = %d || B = %d \n\n\n\n",heuriA[0],heuriA[1],heuriA[2],heuriB[0],heuriB[1],heuriB[2],a,b);
         printf("ArmeA = %f , PerceA = %f , DefenceA = %f \nArmeeB = %f PerceeB = %f , DefenceB = %f \n A = %d || B = %d \n\n\n\n",heuriA[0],heuriA[1],heuriA[2],heuriB[0],heuriB[1],heuriB[2],a,b);
     fclose(fichier);
@@ -196,31 +208,36 @@ int partiH()
 
 
     }
-    //printf("a=%d,b=%d",a,b);
+    /*printf("a=%d,b=%d",a,b);*/
     return 0;
 }
 
 int jouerCoupIA(pion ** grille, char joueur,int  difficulter,int testIA, int ad,int type){
+    int n,i,max,choix;
     coup * pere;
+    coup *coupHeuri;
+    coup *coupActuelle;
+    coup * coupSuivant;
+    coup * coupPossible;
     pere = calloc(1,sizeof(coup));
     pere->proto = NULL;
     pere->coupSuivant = NULL;
     pere = coupsPossibles(grille, joueur,pere);
-    coup * coupPossible = pere;
-    int n = 0;
-    int i = 0;
-    int max;
+    coupPossible = pere;
+    n = 0;
+    i = 0;
+    max = -999999;
     if(difficulter == 0)max = calculHeuristiqueCoups(pere, grille,joueur,type);
     else max = calculHeuristiqueCoupsMultiples(pere, grille,joueur,difficulter,type);
     coupPossible = pere;
-    coup *coupHeuri = calloc(1,sizeof(coup));
+    coupHeuri = calloc(1,sizeof(coup));
     coupHeuri->proto = NULL;
     coupHeuri->coupSuivant = NULL;
-    coup *coupActuelle = coupHeuri;
+    coupActuelle = coupHeuri;
     while (coupPossible != NULL){
         if(coupPossible->heuristique == max){
             n++;
-            coup * coupSuivant = calloc(1,sizeof(coup)); coupSuivant->proto = NULL;coupSuivant->coupSuivant= NULL;
+            coupSuivant = calloc(1,sizeof(coup)); coupSuivant->proto = NULL;coupSuivant->coupSuivant= NULL;
             coupActuelle->proto = coupPossible->proto;
             coupActuelle->heuristique =coupPossible->heuristique;
             coupActuelle->coupSuivant = coupSuivant;
@@ -228,7 +245,7 @@ int jouerCoupIA(pion ** grille, char joueur,int  difficulter,int testIA, int ad,
         }
         coupPossible = coupPossible->coupSuivant;
     }
-    int choix = (rand()%n);
+    choix = (rand()%n);
     i = 0;
     coupPossible = coupHeuri;
 
@@ -241,8 +258,8 @@ int jouerCoupIA(pion ** grille, char joueur,int  difficulter,int testIA, int ad,
 
     freeCoup(pere,1);
     freeCoup(coupHeuri,0);
-    //updateMap(grille);
-    //affiche();
+    /*updateMap(grille);
+    //affiche();*/
 
     return 0;
 }

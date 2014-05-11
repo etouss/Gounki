@@ -20,7 +20,8 @@ int signeB(int test){
 
 
 void calculTypeInterne(pion* pion){
-    int joueur = 0;
+    int joueur;
+    joueur= 0;
     if(pion->joueur == 'B')joueur = -1;
     if(pion->joueur == 'A')joueur = 1;
     switch (pion->type) {
@@ -59,7 +60,8 @@ void calculTypeInterne(pion* pion){
 
 
 int deplacement(pion pionDepart,pion pionArrive){
-    int signeP = signeB(pionDepart.typeInterne);
+    int signeP;
+    signeP= signeB(pionDepart.typeInterne);
     if (pionArrive.typeInterne == 9999||pionArrive.typeInterne == -9999)
         return 0;
     if(signeP*(pionDepart.typeInterne%100/10)+signeP*(pionDepart.typeInterne%1000/100)+signeP*(pionArrive.typeInterne%100/10)+signeP*(pionArrive.typeInterne%1000/100) < 4)
@@ -71,7 +73,8 @@ int deplacement(pion pionDepart,pion pionArrive){
 
 
 int deployement(pion pionDepart,pion pionArrive){
-    int signeA = signeB(pionArrive.typeInterne);
+    int signeA;
+    signeA= signeB(pionArrive.typeInterne);
     if (pionArrive.typeInterne == 9999||pionArrive.typeInterne == -9999)
         return 0;
     if(signeA*(pionArrive.typeInterne%100/10)+signeA*(pionArrive.typeInterne%1000/100) < 3 && (pionArrive.joueur == 'V' || pionArrive.joueur == pionDepart.joueur ))
@@ -80,7 +83,8 @@ int deployement(pion pionDepart,pion pionArrive){
 }
 
 int deployement2(pion pionDepart,pion pionArrive){
-    int signeA = signeB(pionArrive.typeInterne);
+    int signeA;
+    signeA=signeB(pionArrive.typeInterne);
     if (pionArrive.typeInterne == 9999||pionArrive.typeInterne == -9999)
         return 0;
     if(signeA*(pionArrive.typeInterne%100/10)+signeA*(pionArrive.typeInterne%1000/100) < 2 && (pionArrive.joueur == 'V' || pionArrive.joueur == pionDepart.joueur ))

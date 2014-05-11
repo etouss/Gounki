@@ -1,6 +1,6 @@
 SOURCES=grille.c heuristique.c Jouer.c main.c partieHeuristique.c persistance.c pion.c test.c modeTest.c
 OBJECTS=$(SOURCES:.c=.o)
-CFLAGS= -std=c89 -Wall -pedantic -ansi -g
+CFLAGS= -std=c89 -Wall -pedantic
 EXECUTABLE=gounki
 
 $(EXECUTABLE): $(OBJECTS)

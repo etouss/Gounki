@@ -12,7 +12,7 @@
 #include "Jouer.h"
 #include <string.h>
 #define ProjetRC_modeTest_h
-void modeTest(char * name);
+void modeTest(const char * name);
 
 
 #endif

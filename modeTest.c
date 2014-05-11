@@ -10,22 +10,25 @@
 #include <stdlib.h>
 #include "modeTest.h"
 
-void modeTest(char * name){
-    //char * nameb = "test.txt";
+void modeTest(const char * name){
+    char joueur;
+    struct pion ** grille;
+    struct coup * pere;
+    char *coup;
+    FILE * fichier;
     initMap();
-    char joueur='A';
-    int i;
-    struct pion ** grille = initGrille();
-    char *coup=malloc(sizeof(char)*13);
-    FILE * fichier = fopen(name, "r");
+    joueur='A';
+    /*int i;*/
+    grille= initGrille();
+    coup=malloc(sizeof(char)*13);
+    fichier= fopen(name, "r");
     coup = fgets(coup, 13, fichier);
-    //coup[strlen(coup)-1]=0;
+    /*coup[strlen(coup)-1]=0;*/
 
     do{
         if(coup[strlen(coup)-1]=='\n')coup[strlen(coup)-1]=0;
         updateMap(grille);
         affiche();
-        struct coup * pere;
         pere = malloc(sizeof(struct coup));
         pere->proto = NULL;
         pere->coupSuivant = NULL;
