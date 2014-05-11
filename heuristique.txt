@@ -1,0 +1,18 @@
+ArmeA = 4.226562 , PerceA = 1.513672 , DefenceA = 1.734375 
+ArmeeB = 4.226562 PerceeB = 1.513672 , DefenceB = 1.734375 
+ A = 503 || B = 497 
+
+
+
+ArmeA = 4.226562 , PerceA = 1.513672 , DefenceA = 1.734375 
+ArmeeB = 4.226562 PerceeB = 1.513672 , DefenceB = 1.734375 
+ A = 521 || B = 479 
+
+
+
+ArmeA = 4.226562 , PerceA = 1.513672 , DefenceA = 2.734375 
+ArmeeB = 4.226562 PerceeB = 1.513672 , DefenceB = 1.734375 
+ A = 504 || B = 496 
+
+
+

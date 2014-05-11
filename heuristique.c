@@ -16,9 +16,6 @@
 #define min(a, b)       ((a) < (b) ? (a) : (b))
 #define max(a, b)       ((a) < (b) ? (b) : (a))
 
-double heuristique_armee;
-double heuristique_percee;
-double heuristique_defense;
 
 double heuristique_armeeA;
 double heuristique_perceeA;
@@ -58,27 +55,39 @@ double* getReglageB(){
 
 
 void setNormal(){
-    heuristique_armee = HEURISTIQUE_ARMEE;
-    heuristique_percee = HEURISTIQUE_PERCEE;
-    heuristique_defense = HEURISTIQUE_DEFENSE;
+    heuristique_armeeA = HEURISTIQUE_ARMEE;
+    heuristique_perceeA = HEURISTIQUE_PERCEE;
+    heuristique_defenseA = HEURISTIQUE_DEFENSE;
+    heuristique_armeeB = HEURISTIQUE_ARMEE;
+    heuristique_perceeB = HEURISTIQUE_PERCEE;
+    heuristique_defenseB = HEURISTIQUE_DEFENSE;
 }
 
 void setRush(){
-    heuristique_armee = HEURISTIQUE_ARMEE;
-    heuristique_percee = 2*HEURISTIQUE_PERCEE;
-    heuristique_defense = HEURISTIQUE_DEFENSE;
+    heuristique_armeeA = HEURISTIQUE_ARMEE;
+    heuristique_perceeA = 2*HEURISTIQUE_PERCEE;
+    heuristique_defenseA = HEURISTIQUE_DEFENSE;
+    heuristique_armeeB = HEURISTIQUE_ARMEE;
+    heuristique_perceeB = 2*HEURISTIQUE_PERCEE;
+    heuristique_defenseB = HEURISTIQUE_DEFENSE;
 }
 
 void setBlock(){
-    heuristique_armee = HEURISTIQUE_ARMEE;
-    heuristique_percee = HEURISTIQUE_PERCEE;
-    heuristique_defense = 2*HEURISTIQUE_DEFENSE;
+    heuristique_armeeA = HEURISTIQUE_ARMEE;
+    heuristique_perceeA = HEURISTIQUE_PERCEE;
+    heuristique_defenseA = 2*HEURISTIQUE_DEFENSE;
+    heuristique_armeeB = HEURISTIQUE_ARMEE;
+    heuristique_perceeB = HEURISTIQUE_PERCEE;
+    heuristique_defenseB = 2*HEURISTIQUE_DEFENSE;
 }
 
 void setLoose(){
-    heuristique_armee = 2*HEURISTIQUE_ARMEE;
-    heuristique_percee = HEURISTIQUE_PERCEE;
-    heuristique_defense = HEURISTIQUE_DEFENSE;
+    heuristique_armeeA = 2*HEURISTIQUE_ARMEE;
+    heuristique_perceeA = HEURISTIQUE_PERCEE;
+    heuristique_defenseA = HEURISTIQUE_DEFENSE;
+    heuristique_armeeB = 2*HEURISTIQUE_ARMEE;
+    heuristique_perceeB = HEURISTIQUE_PERCEE;
+    heuristique_defenseB = HEURISTIQUE_DEFENSE;
 }
 
 int heuristiques (pion** grille,coup* coup,char joueur,int type){
@@ -122,15 +131,15 @@ int heuristiques (pion** grille,coup* coup,char joueur,int type){
         for (y=0; y<8; y++) {
             if(grilleCpy[x][y].joueur == 'A')maxY= max(maxY,y);
             else if(grilleCpy[x][y].joueur == 'B') minY=min(minY,y);
-            if(joueur == 'A')resultat += (grilleCpy[x][y].joueur == joueur ? grilleCpy[x][y].type : -grilleCpy[x][y].type)*heuristique_armee;
-            if(joueur == 'B')resultat += (grilleCpy[x][y].joueur == joueur ? grilleCpy[x][y].type : -grilleCpy[x][y].type)*heuristique_armee;
+            if(joueur == 'A')resultat += (grilleCpy[x][y].joueur == joueur ? grilleCpy[x][y].type : -grilleCpy[x][y].type)*heuristique_armeeA;
+            if(joueur == 'B')resultat += (grilleCpy[x][y].joueur == joueur ? grilleCpy[x][y].type : -grilleCpy[x][y].type)*heuristique_armeeB;
 
         }
     }
-    if(joueur == 'A')resultat+=maxY*heuristique_percee;
-    if(joueur == 'B')resultat+=(7-minY)*heuristique_percee;
-    if(joueur == 'A')resultat-=(7-minY)*heuristique_defense;
-    if(joueur == 'B')resultat-=(maxY)*heuristique_defense;
+    if(joueur == 'A')resultat+=maxY*heuristique_perceeA;
+    if(joueur == 'B')resultat+=(7-minY)*heuristique_perceeB;
+    if(joueur == 'A')resultat-=(7-minY)*heuristique_defenseA;
+    if(joueur == 'B')resultat-=(maxY)*heuristique_defenseB;
 
     freeGrille(grilleCpy);
     return (int)resultat;

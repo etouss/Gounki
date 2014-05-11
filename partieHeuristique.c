@@ -21,7 +21,7 @@ void viderBufferc()
 int partiH()
 {
 
-    int typeA = -1;
+    /*int typeA = -1;
     int typeB = -1;
     printf("Choisiser l'IA de A \n0 pour l'IA standa\n1 pour l'IA aggresive\n2 pour l'IA defence\n3 pour l'IA bizzare\n");
     while (typeA<0||typeA>4) {
@@ -32,18 +32,18 @@ int partiH()
     while (typeB<0||typeB>4) {
         scanf("%d", &typeB);
         viderBufferc();
-    }
+    }*/
 
     srand(time(NULL));
 
-    //setReglageA(4.226562, 1.513672, 1.734375);
-    //setReglageB(4.226562, 1.513672, 1.734375);
+    setReglageA(4.226562, 1.513672, 1.734375);
+    setReglageB(4.226562, 1.513672, 1.734375);
 
-    //int signe = 1;
-    //double unite = 1;
-    //int reglage = 2;
+    int signe = 1;
+    double unite = 1;
+    int reglage = 0;
 
-    //while(1){
+    while(1){
     int victoire = 0;
     int t = 0;
     int a=0;
@@ -70,7 +70,7 @@ int partiH()
                 coup * coupPossible = pere;
                 int n = 0;
                 int i = 0;
-                int max = calculHeuristiqueCoups(pere, grille,'A',typeA);
+                int max = calculHeuristiqueCoups(pere, grille,'A',-1);
 
                 coupPossible = pere;
                 coup *coupHeuri = calloc(1,sizeof(coup));
@@ -168,7 +168,7 @@ int partiH()
         freeMap();
 
     }
-    /*    double * heuriA = getReglageA();
+        double * heuriA = getReglageA();
         double * heuriB = getReglageB();
     FILE * fichier = fopen("heuristique.txt", "a");
         fprintf(fichier,"ArmeA = %f , PerceA = %f , DefenceA = %f \nArmeeB = %f PerceeB = %f , DefenceB = %f \n A = %d || B = %d \n\n\n\n",heuriA[0],heuriA[1],heuriA[2],heuriB[0],heuriB[1],heuriB[2],a,b);
@@ -193,10 +193,10 @@ int partiH()
         }
         free(heuriA);
         free(heuriB);
-     */
 
-    //}
-    printf("a=%d,b=%d",a,b);
+
+    }
+    //printf("a=%d,b=%d",a,b);
     return 0;
 }
 
