@@ -1,12 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Pion.h"
-#include "test.h"
-#define clear     "\033[H\033[2J"
-#define fond1     "\033[40m" /*fond noir*/
-#define fond2     "\033[47m" /*fond gris.*/
-#define BLUE      "\033[1;34m"
-#define RED       "\033[1;31m"
+#define clear()     printf("\033[H\033[2J")
+#define fond1()     printf("\033[40m"); /*fond noir*/
+#define fond2()     printf("\033[47m"); /*fond gris.*/
+#define BLUE()      printf("\033[1;34m")
+#define RED()       printf("\033[1;31m")
 #define BLACK       "\033[0;30m"
 
 char ** map;
@@ -57,10 +56,10 @@ void affiche(){
         for (i=0; i<17; i++){
             if (i>0 && j<16){
                 if(b%2==0){
-                    printf(fond1);
+                    fond1();
                 }
                 else{
-                    printf(fond2);
+                    fond2();
                 }
                 a++;
                 if(a==2){
@@ -75,8 +74,8 @@ void affiche(){
             if (i==0 || j==16){
                 printf ("\033[0m");
             }
-            if((map[i][j]=='B'&& j != 16)||(map[i][j-1]=='B'&& j != 17))printf(BLUE);
-            if((map[i][j]=='A'&& j != 16)||(map[i][j-1]=='A'&& j != 17))printf(RED);
+            if((map[i][j]=='B'&& j != 16)||(map[i][j-1]=='B'&& j != 17))BLUE();
+            if((map[i][j]=='A'&& j != 16)||(map[i][j-1]=='A'&& j != 17))RED();
             printf("%c ",map[i][j]);
         }
         c++;
@@ -149,61 +148,3 @@ void updateMap(pion ** grille){
     }
 
 }
-
-char * string_plat(){
-    char * result = malloc(sizeof(char)*10000);
-    memset(result,0,10000);
-    strcat(result,"\r\n");
-    int i;
-    int j;
-    int a;
-    int b;
-    int c;
-    a=0;b=0;c=1;
-    for (j=16; j>=0; j--){
-        for (i=0; i<17; i++){
-            if (i>0 && j<16){
-                if(b%2==0){
-                  printf(fond2);
-                  strcat(result,fond2);
-                }
-                else{
-                  printf(fond1);
-                  strcat(result,fond1);
-                }
-                a++;
-                if(a==2){
-                    b++;
-                    a=0;
-                }
-            }
-            if(i==0 && c==2){
-                b++;
-                c=0;
-            }
-            if (i==0 || j==16){
-                printf ("\033[0m");
-                strcat(result,"\033[0m");
-
-            }
-            if((map[i][j]=='B'&& j != 16)||(map[i][j-1]=='B'&& j != 17)){
-              printf(BLUE);
-              strcat(result,BLUE);
-            }
-            if((map[i][j]=='A'&& j != 16)||(map[i][j-1]=='A'&& j != 17)){
-              printf(RED);
-              strcat(result,RED);
-            }
-            printf("%c ",map[i][j]);
-            char nb[2];
-            sprintf(nb,"%c",map[i][j]);
-            strcat(result," "); 
-            strcat(result,nb);
-        }
-        c++;
-        printf ("\033[0m \n");
-        strcat(result,"\033[0m \n");
-    }
-    return result;
-}
-

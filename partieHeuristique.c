@@ -252,7 +252,7 @@ int jouerCoupIA(pion ** grille, char joueur,int  difficulter,int testIA, int ad,
     for (i=0; i<choix; i++) {
         coupPossible = coupPossible->coupSuivant;
     }
-    //if(ad)setAdvice(coupPossible->proto);
+    if(ad)setAdvice(coupPossible->proto);
     if(!testIA)printf("\n%s\n",coupPossible->proto);
     if(action(grille, coupPossible->proto, pere,1)==1)return 1;
 

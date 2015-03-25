@@ -8,12 +8,10 @@
 
 #ifndef Projet_test_h
 #define Projet_test_h
-#include <string.h>
 
 void initMap();
 void freeMap();
 void affiche();
 void updateMap(pion ** grille);
-char * string_plat();
 
 #endif
