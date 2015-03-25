@@ -6,7 +6,7 @@
 
 int main(int argc, const char * argv[])
 {
-    if(argv[1]==NULL)jouer();
+    if(argv[1]==NULL)jouer_radio(NULL);
     if(strcmp(argv[1],"heuri")==0)
     partiH();
     if(strcmp(argv[1],"-t")==0)modeTest(argv[2]);
